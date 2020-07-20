@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>#
+		<%= index %>(
+		<%= img %>)</title>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			background-color: #0e0e0e;
+		}
+
+		.content {
+			text-align: center;
+			display: block;
+			margin: auto;
+			max-width: 100%;
+			max-height: 100%;
+			width: auto;
+			height: 100%;
+			
+			object-fit: cover;
+			
+		}
+	</style>
+	<script>
+		setTimeout(() => {
+			var newIndex = <%= index %> + 1;
+			if (newIndex >= <%= maxIndex %>)
+				newIndex = 0;
+			window.location.replace("/view/" + newIndex + "/auto");
+		}, 5000);
+
+	</script>
+</head>
+
+<body>
+	<span>
+		<%if (imgtype == 0) { %>
+		<img class="content" ondblclick="toggleFull()" src="../../<%= img %>">
+		<% } %>
+
+		<%if (imgtype == 1) { %>
+		<video class="content" controls autoplay loop ondblclick="toggleFull()">
+			<source src="../../<%= img %>" type="video/mp4">
+		</video>
+		<% } %>
+	</span>
+</body>
+
+</html>
+
+<script>
+	document.onkeydown = checkKey;
+	var myVid = document.getElementsByTagName("video");
+	myVid[0].volume = 0.03;
+	
+	function checkKey(e) {
+
+		e = e || window.event;
+		console.info(e);
+		
+		if(e.keyCode == "32")
+		{
+			window.location.replace("/view/" + <%= index %>);
+		}
+	}
+</script>
